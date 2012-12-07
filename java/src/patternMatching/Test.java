@@ -1,10 +1,17 @@
 package patternMatching;
 
+import java.util.ArrayList;
+
 public class Test {
 
 	public static void main(String[] args) {
-		int alphabetSize = 2;
-		RandomStringGenerator randGen = new RandomStringGenerator(200, alphabetSize, "test");
-
+		RandomStringGenerator randGen = new RandomStringGenerator(3);
+		ArrayList<Integer> alphabet = randGen.getAlphabet();
+		ArrayList<Integer> text = randGen.generate(10);
+		ArrayList<Integer> pattern = randGen.generate(2);
+		System.out.println(text);
+		System.out.println(pattern);
+		FJS fjs = new FJS(alphabet);
+		fjs.find(text, pattern);
 	}
 }
