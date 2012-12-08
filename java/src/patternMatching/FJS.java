@@ -2,6 +2,7 @@ package patternMatching;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class FJS<T> {
 
@@ -11,34 +12,52 @@ public class FJS<T> {
 		this.alphabet = alphabet;
 	}
 
-	public int find(ArrayList<T> pattern, ArrayList<T> text) {
+	public int find(ArrayList<T> text, ArrayList<T> pattern) {
+		ArrayList<T> x = new ArrayList<>();
+		x.add(null);
+		x.addAll(text);
+
+		ArrayList<T> p = new ArrayList<>();
+		p.add(null);
+		p.addAll(pattern);
+
+		ArrayList<Integer> B2 = new ArrayList<>();
+		B2.add(null);
+		B2.addAll(defineB2(pattern));
+
+		System.out.println(x);
+		System.out.println(p);
+		System.out.println(B2);
+
 		int m = pattern.size();
 		int n = text.size();
 		int i;
 		int i2;
 		int j;
 		int m2;
-		ArrayList<Integer> B2 = defineB2(pattern);
 		HashMap<T, Integer> delta = defineDelta(pattern);
+		System.out.println(delta);
 
 		if (m < 1) {
 			return 0;
 		}
 
-		i = 0;
+		i = 1;
 		i2 = m;
 		j = 1;
 		m2 = m - 1;
 
-		while (i2 < n) {
+		while (i2 <= n) {
+			System.out.println("i2 : " + i2 + "  -  n : " + n);
 			// BM (Sunday) shift if p[m] fails to match
-			if (pattern.get(m) != text.get(i2)) {
+			if (p.get(m) != x.get(i2)) {
 				do {
-					i2 = i2 + delta.get(text.get(i2 + 1));
+					i2 = i2 + delta.get(x.get(i2 + 1));
 					if (i2 > n) {
 						return 0;
 					}
-				} while (pattern.get(m) == text.get(i2));
+					System.out.println("pattern : " + p.get(m) + "  -  text : " + x.get(i2));
+				} while (p.get(m) == x.get(i2));
 				j = 1;
 			}
 
@@ -47,7 +66,7 @@ public class FJS<T> {
 				i = i2 - m2;
 				j = 1;
 			}
-			while (j < m && text.get(i) == pattern.get(j)) {
+			while (j < m && x.get(i) == p.get(j)) {
 				i = i + 1;
 				j = j + 1;
 			}
@@ -66,56 +85,57 @@ public class FJS<T> {
 	}
 
 	private ArrayList<Integer> defineB(ArrayList<T> pattern) {
-		ArrayList<Integer> B = new ArrayList<>(pattern.size() + 1);
+		ArrayList<Integer> B = new ArrayList<>();
+		int m = pattern.size();
 		int length;
-		ArrayList<?> border;
-		B.set(0, 0);
-		for (int i = 1; i < B.size(); i++) {
-			border = Util.border((ArrayList<T>) (pattern.subList(1, i - 1)));
+		List list;
+		ArrayList border;
+		B.add(0);
+		for (int j = 2; j <= m + 1; j++) {
+			list = pattern.subList(0, j-1);
+			border = Util.border(new ArrayList(list));
 			length = border.size() + 1;
-			B.set(i, length);
+			B.add(length);
 		}
-
+		System.out.println("B : " + B);
 		return B;
 	}
 
 	private ArrayList<Integer> defineB2(ArrayList<T> pattern) {
 		ArrayList<Integer> B = defineB(pattern);
-		ArrayList<Integer> B2 = new ArrayList<>(pattern.size() + 1);
-		ArrayList<?> border;
+		ArrayList<Integer> B2 = new ArrayList<>();
+
 		int m = pattern.size();
-		int j;
+		int j2;
 
-		for (int i = 0; i < B2.size(); i++) {
-			if (i == m + 1) {
-				B2.set(i, B.get(i));
-			} else {
-				border = Util.border((ArrayList<T>) (pattern.subList(1, i - 1)));
-				j = border.size() + 1;
-				if (pattern.get(j) != pattern.get(i)) {
-					B2.set(i, 0);
-				}
+		for (int j = 0; j < m; j++) {
+			j2 = B.get(j);
+			if (pattern.get(j2) != pattern.get(j)) {
+				j2 = 0;
 			}
+			B2.add(j2);
 		}
-
+		B2.add(B.get(m));
+		System.out.println("B2 : " + B2);
 		return B2;
 	}
 
 	private HashMap<T, Integer> defineDelta(ArrayList<T> pattern) {
 		HashMap<T, Integer> delta = new HashMap<>();
-		int alphaSize = alphabet.size();
+		ArrayList<T> p = new ArrayList<>();
+		p.add(null);
+		p.addAll(pattern);
+
+		int j2;
 		int m = pattern.size();
-		T a;
-
-		for (int i = 0; i < alphaSize; i++) {
-			delta.put(alphabet.get(i), -1);
+		for (T token : alphabet) {
+			j2 = p.lastIndexOf(token);
+			if (j2 == -1) {
+				delta.put(token, 0);
+			} else {
+				delta.put(token, m - j2 + 1);
+			}
 		}
-
-		for (int i = 0; i < m; i++) {
-			a = pattern.get(i);
-			delta.put(a, i);
-		}
-
 		return delta;
 	}
 }

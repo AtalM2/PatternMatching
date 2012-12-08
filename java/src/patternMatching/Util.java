@@ -15,7 +15,6 @@ public class Util {
 			if (arrayEquals(prefix, suffix)) {
 				border = new ArrayList(pattern.subList(0, i));
 			}
-			i++;
 		}
 		return border;
 	}
