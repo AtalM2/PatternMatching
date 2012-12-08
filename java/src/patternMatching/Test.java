@@ -11,7 +11,9 @@ public class Test {
 		ArrayList<Integer> pattern = randGen.generate(3);
 		System.out.println(text);
 		System.out.println(pattern);
-		FJS fjs = new FJS(alphabet);
-		fjs.find(text, pattern);
+		//FJS fjs = new FJS(alphabet);
+		//fjs.find(text, pattern);
+		SA sa = new SA(alphabet);
+		sa.find(text, pattern);
 	}
 }
