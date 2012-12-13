@@ -13,3 +13,6 @@ cl/*.txt
 /rapport.log
 /rapport.out
 /rapport.pdf
+/rapport.bbl
+/rapport.blg
+/rapport.toc

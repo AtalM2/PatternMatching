@@ -15,6 +15,7 @@
 \author{Noémi Salaün \and{} Grégoire Jadi}
 
 \maketitle
+\tableofcontents
 
 \section{Introduction}
 
@@ -22,7 +23,7 @@ La recherche de motif dans un texte est un des plus vieux problèmes en informat
 
 Ainsi, soit un texte \emph{t} de longueur \emph{n}, un motif \emph{p} de longueur \emph{m}, et $ \Sigma $ un alphabet de taille $ \sigma $. Le but est de rechercher toutes les occurences du motif \emph{p} dans le texte \emph{t}.
 
-De nombreux travaux et études ont été fait sur ce sujet et nous avons étudié l'article de Simone Faro et Thierry Lecroq << The Excact String Matching Problem: a Comprehensive Experimental Evaluation >>\cite{exact_string_matching_problem} qui présente une étude relativement complète des algorithmes répondant à ce problème.
+De nombreux travaux et études ont été fait sur ce sujet et nous avons étudié l'article de Simone Faro et Thierry Lecroq << The Excact String Matching Problem: a Comprehensive Experimental Evaluation >>\cite{DBLP:journals/corr/abs-1012-2547} qui présente une étude relativement complète des algorithmes répondant à ce problème.
 
 \section{Différentes catégories d'algorithmes}
 
@@ -42,7 +43,7 @@ La dernière catégorie d'algorithme est aussi vieille que la précédente. Les 
 
 \section{Boyer-Moore-Horspool}
 
-Suite à une erreur dans l'article\cite{exact_string_matching_problem} nous n'avons pas implémenté l'algorithme \texttt{Shift-And} comme nous l'avions prévu. C'est l'algorithme \emph{Boyer-Moore-Horspool} qui a été implémenté à la place.
+Suite à une erreur dans l'article\cite{DBLP:journals/corr/abs-1012-2547} nous n'avons pas implémenté l'algorithme \texttt{Shift-And} comme nous l'avions prévu. C'est l'algorithme \emph{Boyer-Moore-Horspool} qui a été implémenté à la place.
 
 \section{Extended BOM}
 
@@ -56,7 +57,7 @@ L'algorithme \texttt{BDM} utilise un graph cyclique direct (\emph{Directed Acycl
 
 L'algorithme \texttt{EBOM} améliore l'algorithme \texttt{BOM} par l'utilisation d'une << \emph{boucle rapide} >> (\emph{Fast Loop}). Une \emph{boucle rapide} est une méthode qui permet d'améliorer les performances moyennes d'un algorithme de recherche lorsque la taille du motif est assez petite et lorsque l'alphabet est grand. Le principe de la \emph{boucle rapide} est d'appliquer la règle dite \emph{du mauvais caractère} (\emph{bad character rule}) pour le premier caractère du motif uniquement. Le but de cette méthode est de trouver rapidement un meilleur << point d'entrée >> pour la recherche.
 
-Nous n'avons pas eu le temps d'implémenter cette algorithme. Pour l'instant seul la construction du \texttt{DAWG} a été réalisée.
+Nous n'avons pas eu le temps d'implémenter cette algorithme. Pour l'instant seul la construction du \texttt{DAWG}\cite{DBLP:journals/tcs/BlumerBHECS85} a été réalisée.
 
 \begin{figure}[h]
   \centering
@@ -64,5 +65,7 @@ Nous n'avons pas eu le temps d'implémenter cette algorithme. Pour l'instant seu
   \caption{DAWG de "aabacd"}
   \label{fig:dawg}
 \end{figure}
+
+\bibliographystyle{plain} \bibliography{biblio}
 
 \end{document}
