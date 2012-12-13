@@ -5,6 +5,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
+\usepackage{amsmath}
+\usepackage{graphicx}
 \usepackage{hyperref}
 
 \begin{document}
@@ -16,10 +18,51 @@
 
 \section{Introduction}
 
+La recherche de motif dans un texte est un des plus vieux problèmes en informatique.
+
+Ainsi, soit un texte \emph{t} de longueur \emph{n}, un motif \emph{p} de longueur \emph{m}, et $ \Sigma $ un alphabet de taille $ \sigma $. Le but est de rechercher toutes les occurences du motif \emph{p} dans le texte \emph{t}.
+
+De nombreux travaux et études ont été fait sur ce sujet et nous avons étudié l'article de Simone Faro et Thierry Lecroq << The Excact String Matching Problem: a Comprehensive Experimental Evaluation >>\cite{exact_string_matching_problem} qui présente une étude relativement complète des algorithmes répondant à ce problème.
+
 \section{Différentes catégories d'algorithmes}
 
-\section{Shift-And}
+On peut regrouper les algorithmes de recherches de chaîne en trois grandes catégories:
+
+\begin{itemize}
+\item les algorithmes basés sur la comparaison de caractères;
+\item les algorithmes basés sur un automate;
+\item les algorithmes basés sur la parallélisation de bits;
+\end{itemize}
+
+Les algorithmes basés sur la comparaison de caractères sont les plus répandus et ont été les premiers à être étudiés. Ainsi l'algorithme de Knuth-Morris-Pratt remonte à 1977. Comme leur nom le suggère, ces algorithmes utilisent uniquement la comparaison de caractères pour rechercher le motif.
+
+Les algorithmes basés sur un automate sont un peu plus récent, le plus ancien de 1992. Le principe des ces algorithmes est de construire un automate à partir du motif recherché afin d'améliorer la recherche.
+
+La dernière catégorie d'algorithme est aussi vieille que la précédente. Les deux algorithmes initiaux basés sur la parallélisation de, bits Shift-Or et Shift-And datent également de 1992. Cette classe d'algorithme utilise le fait que les automates non-déterministes peuvent être simulés à l'aides d'opérations sur les bits.
+
+\section{Boyer-Moore-Horspool}
+
+Suite à une erreur dans l'article\cite{exact_string_matching_problem} nous n'avons pas implémenté l'algorithme \texttt{Shift-And} comme nous l'avions prévu. C'est l'algorithme \emph{Boyer-Moore-Horspool} qui a été implémenté à la place.
 
 \section{Extended BOM}
+
+\texttt{EBOM} ou \emph{Extended BOM} est un algorithme basé sur un automate. C'est une amélioration de l'algorithme \emph{Backward-Oracle-Matching} ou \texttt{BOM} qui était lui même basé sur l'algorithme \emph{Backward-DAWG-Matching} ou \texttt{BDM}.
+
+En principe, ces algorithmes sont relativement simples. Un automate permettant de reconnaitre tous les facteurs du motif inverse recherché est construit. Ensuite, on parcourt le texte de gauche à droite mais en recherchant de droite à gauche.
+
+L'idée sous-jacente de ces algorithmes est que si la recherche échoue à la lettre \emph{c} après avoir lu le mot \emph{u} alors \emph{cu} n'est pas un facteur du motif. Ainsi, on peut positionner le début de la fenêtre de recherche juste après la lettre \emph{c}.
+
+L'algorithme \texttt{BDM} utilise un graph cyclique direct (\emph{Directed Acyclic Word Graph} ou \texttt{DAWG}) qui reconnait tous les facteurs d'un mot et uniquement de ce mot. Les agorithmes \texttt{BOM} et \texttt{EBOM} utilisent un oracle comme automate, qui, contrairement au \texttt{DAWG} n'est pas garanti de ne reconnaitre que des facteurs du motif. En revanche, le seul mot de longueur \emph{m} reconnu est le motif recherché.
+
+L'algorithme \texttt{EBOM} améliore l'algorithme \texttt{BOM} par l'utilisation d'une << \emph{boucle rapide} >> (\emph{Fast Loop}). Une \emph{boucle rapide} est une méthode qui permet d'améliorer les performances moyennes d'un algorithme de recherche lorsque la taille du motif est assez petite et lorsque l'alphabet est grand. Le principe de la \emph{boucle rapide} est d'appliquer la règle dite \emph{du mauvais caractère} (\emph{bad character rule}) pour le premier caractère du motif uniquement. Le but de cette méthode est de trouver rapidement un meilleur << point d'entrée >> pour la recherche.
+
+Nous n'avons pas eu le temps d'implémenter cette algorithme. Pour l'instant seul la construction du \texttt{DAWG} a été réalisée.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=15cm]{dawg.png}
+  \caption{DAWG de "aabacd"}
+  \label{fig:dawg}
+\end{figure}
 
 \end{document}
