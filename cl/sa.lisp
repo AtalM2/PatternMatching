@@ -4,7 +4,7 @@
 (in-package #:exact-string-matching)
 
 (defun sa (text pattern)
-  (sa-find text pattern (merge 'vector text pattern #'eq)))
+  (sa-find text pattern (merge 'vector text pattern #'equalp)))
 
 (defun sa-find (text pattern alphabet)
   (let ((n (length text))
@@ -29,5 +29,5 @@
                             (aref p j)))
              (decf k)
              (finally (return j))))
-      (if (zerop j)
-          (format t "~&report match at position: ~D" (1+ k))))))
+      (when (zerop j)
+        (collect (1+ k))))))
