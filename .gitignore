@@ -8,3 +8,8 @@
 # Test Files #
 cl/*.txt
 
+/auto/*
+/rapport.aux
+/rapport.log
+/rapport.out
+/rapport.pdf
