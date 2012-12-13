@@ -4,7 +4,8 @@
 (in-package #:exact-string-matching)
 
 (defun sa (text pattern)
-  (sa-find text pattern (merge 'vector text pattern #'equalp)))
+  (sa-find text pattern (remove-duplicates
+                         (concatenate 'vector text pattern))))
 
 (defun sa-find (text pattern alphabet)
   (let ((n (length text))
