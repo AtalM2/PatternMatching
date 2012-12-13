@@ -6,7 +6,10 @@
   :author "Grégoire Jadi"
   :license "MIT"
   :depends-on (#:alexandria
-               #:iterate)
+               #:iterate
+               #:anaphora)
   :components ((:file "package")
+               (:file "automata")
+               (:file "bdm")
                (:file "ebom")))
 

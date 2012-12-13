@@ -4,5 +4,6 @@
 (defpackage #:exact-string-matching
   (:use #:cl
         #:alexandria
-        #:iterate))
+        #:iterate
+        #:anaphora))
 
