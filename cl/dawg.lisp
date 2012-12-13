@@ -118,7 +118,7 @@
     ;; same label and leading to the same state.
     (iter (for edge in (append (state-primary-edges child-state)
                                (state-secondary-edges child-state)))
-      (push edge (state-secondary-edges new-child-state)))
+      (pushnew edge (state-secondary-edges new-child-state)))
 
     ;; Set the suffix pointer of NEW-CHILD-STATE equal to that of CHILD-STATE.
     (setf (state-pointer new-child-state) (state-pointer child-state))
@@ -171,7 +171,7 @@ digraph finite_state_machine {
         (iter (for edge in (append (state-primary-edges state)
                                    (state-secondary-edges state)))
           (unless (find (edge-to edge) states-done)
-            (push (edge-to edge) states))
+            (pushnew (edge-to edge) states))
           (format t "~&  ~D -> ~D [ label = \"~C\" ];"
                   (state-name state)
                   (state-name (edge-to edge))
