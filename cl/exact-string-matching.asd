@@ -11,5 +11,7 @@
   :components ((:file "package")
                (:file "automata")
                (:file "bdm")
-               (:file "ebom")))
+               (:file "ebom")
+
+               (:file "sa.lisp")))
 
