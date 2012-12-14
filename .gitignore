@@ -23,3 +23,5 @@ cl/*.txt
 /pres.pdf
 /pres.snm
 /pres.toc
+/pres.bbl
+/pres.blg
