@@ -10,8 +10,6 @@
                #:anaphora)
   :components ((:file "package")
                (:file "automata")
-               (:file "bdm")
-               (:file "ebom")
-
-               (:file "sa.lisp")))
+               (:file "dawg")
+               (:file "sa")))
 
