@@ -11,5 +11,6 @@
   :components ((:file "package")
                (:file "automata")
                (:file "dawg")
-               (:file "sa")))
+               (:file "sa")
+               (:file "try")))
 
